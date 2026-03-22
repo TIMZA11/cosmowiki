@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:8080/)",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(npm list:*)",
+      "Bash(npm root:*)",
+      "Bash(npx --yes http-server --version)",
+      "Bash(npm install:*)",
+      "Bash(firecrawl search:*)",
+      "Bash(curl -s \"https://api.spacexdata.com/v3/launches/latest\")",
+      "Bash(curl -s \"https://api.spacexdata.com/v4/rockets\")",
+      "Bash(curl -s \"https://api.spacexdata.com/v4/launches/latest\")",
+      "Bash(curl -sI https://api.spacexdata.com/v4/rockets)",
+      "Bash(curl -s \"https://api.spacexdata.com/v4/launches/past\")",
+      "Bash(python -c \":*)",
+      "Bash(curl -s \"https://api.spacexdata.com/v4/company\")",
+      "Bash(curl -s -o /dev/null -w \"HTTP %{http_code}, time: %{time_total}s\" \"https://api.spacexdata.com/v4/rockets\")"
+    ]
+  }
+}

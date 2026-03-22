@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "cosmo-dev",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["http-server", "D:/MyWebsite/Cosmo", "-p", "8080", "-c-1", "--cors"],
+      "port": 8080
+    }
+  ]
+}

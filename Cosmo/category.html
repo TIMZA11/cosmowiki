@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CosmoWiki — Категория</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Фоновое видео космоса -->
+    <div class="video-bg">
+        <video autoplay muted loop playsinline>
+            <source src="assets/space-bg.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay"></div>
+    </div>
+
+    <!-- Декоративные сферы -->
+    <div class="sphere sphere-1"></div>
+    <div class="sphere sphere-3"></div>
+
+    <!-- Шапка -->
+    <header class="header">
+        <a href="index.html" class="logo">COSMO<span>WIKI</span></a>
+        <nav class="nav">
+            <a href="index.html" class="nav-link">Главная</a>
+            <a href="index.html#catalog" class="nav-link active">Каталог</a>
+            <a href="spacex.html" class="nav-link">SpaceX</a>
+            <a href="index.html#about" class="nav-link">О проекте</a>
+        </nav>
+    </header>
+
+    <!-- Контент страницы категории -->
+    <main class="page-content">
+        <!-- Хлебные крошки -->
+        <nav class="breadcrumb" id="breadcrumb">
+            <a href="index.html">Главная</a>
+            <span class="breadcrumb-sep">/</span>
+            <span id="breadcrumb-category">Категория</span>
+        </nav>
+
+        <!-- Заголовок категории -->
+        <div class="category-header" id="category-header">
+            <span class="category-header-icon" id="category-icon"></span>
+            <h1 class="category-title" id="category-title">Загрузка...</h1>
+            <p class="category-description" id="category-description"></p>
+        </div>
+
+        <!-- Блок статьи Naked Science (описание категории) -->
+        <div class="ns-article-block" id="ns-article" style="display:none">
+            <div class="ns-article-content">
+                <img class="ns-article-image" id="ns-image" src="" alt="" loading="lazy">
+                <div class="ns-article-text">
+                    <p id="ns-text"></p>
+                    <a class="ns-source-link" id="ns-source" href="" target="_blank">
+                        Читать полностью на Naked Science &rarr;
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Сетка объектов -->
+        <div class="objects-grid" id="objects-grid">
+            <!-- Карточки объектов генерируются через JS -->
+        </div>
+    </main>
+
+    <!-- Футер -->
+    <footer class="footer">
+        <p>&copy; 2026 CosmoWiki. Данные: <a href="https://ru.wikipedia.org" target="_blank">Википедия</a> · <a href="https://www.nasa.gov" target="_blank">NASA</a> · <a href="https://www.spacex.com" target="_blank">SpaceX</a> · <a href="https://naked-science.ru/article/top/gid-po-vselennoi-kto-est" target="_blank">Naked Science</a></p>
+    </footer>
+
+    <script src="js/catalog.js"></script>
+    <script src="js/naked-science-data.js"></script>
+    <script src="js/wiki-api.js"></script>
+    <script src="js/nasa-api.js"></script>
+    <script src="js/category.js"></script>
+</body>
+</html>

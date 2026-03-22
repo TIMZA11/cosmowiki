@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "cosmo-dev",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["C:/Users/Ivan/AppData/Roaming/npm/node_modules/http-server/bin/http-server", "Cosmo", "-p", "8090", "-c-1", "--cors"],
+      "port": 8090
+    }
+  ]
+}
