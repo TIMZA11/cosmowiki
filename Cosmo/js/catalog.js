@@ -26,7 +26,7 @@ const CATEGORIES = [
     {
         id: 'planets',
         name: 'Планеты',
-        icon: '🪐',
+        icon: '🌍',
         description: 'Планеты Солнечной системы',
         objects: [
             { id: 'mercury', name: 'Меркурий', wiki: 'Меркурий_(планета)', distanceKm: 77000000 },
@@ -204,7 +204,7 @@ const CATEGORIES = [
     {
         id: 'exoplanets',
         name: 'Экзопланеты',
-        icon: '🪐',
+        icon: '🔭',
         description: 'Планеты за пределами Солнечной системы',
         objects: [
             { id: 'proxima-b',    name: 'Проксима Центавра b',  wiki: 'Проксима_Центавра_b',  distanceKm: 4.01e+13 },
