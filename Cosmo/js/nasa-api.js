@@ -20,7 +20,7 @@ const NasaAPI = (() => {
         proxima:      'Proxima Centauri red dwarf',
         vega:         'Vega star Lyra',
         altair:       'Altair star Aquila',
-        rigel:        'Rigel blue supergiant Orion',
+        rigel:        'bright star Orion belt',
         antares:      'Antares red supergiant Scorpius',
         aldebaran:    'Aldebaran red giant Taurus',
 
@@ -40,11 +40,11 @@ const NasaAPI = (() => {
         eris:         'Eris dwarf planet Kuiper belt',
         haumea:       'Haumea dwarf planet elongated',
         makemake:     'Makemake dwarf planet Kuiper belt',
-        gonggong:     'outer solar system Kuiper belt object art concept',
+        gonggong:     'distant solar system body artist',
         quaoar:       'Quaoar Kuiper belt trans-neptunian',
-        sedna:        'distant solar system object red dwarf planet art',
-        orcus:        'binary Kuiper belt object trans-neptunian art concept',
-        salacia:      'outer solar system minor planet Kuiper belt art',
+        sedna:        'Sedna',
+        orcus:        'Kuiper Belt binary',
+        salacia:      'outer solar system object',
 
         // Спутники
         moon:         'Moon lunar surface Apollo',
@@ -64,7 +64,7 @@ const NasaAPI = (() => {
         hygiea:       'Hygiea asteroid main belt',
         bennu:        'Bennu asteroid OSIRIS-REx sample',
         itokawa:      'Itokawa asteroid Hayabusa mission',
-        ryugu:        'Hayabusa2 asteroid sample return JAXA carbon',
+        ryugu:        'asteroid sample return',
         apophis:      'Apophis asteroid near Earth',
         eros:         'Eros asteroid NEAR Shoemaker',
         ida:          'Ida asteroid moon Dactyl Galileo',
@@ -90,7 +90,7 @@ const NasaAPI = (() => {
         smc:           'Small Magellanic Cloud Hubble',
         whirlpool:     'Whirlpool galaxy M51 Hubble spiral',
         sombrero:      'Sombrero galaxy M104 Hubble',
-        cartwheel:     'Cartwheel galaxy ring collision Webb telescope',
+        cartwheel:     'Cartwheel galaxy',
         'centaurus-a': 'Centaurus A NGC 5128 radio galaxy',
         bodes:         'Bode galaxy M81 spiral Hubble',
 
@@ -101,9 +101,9 @@ const NasaAPI = (() => {
         'eagle-nebula':  'Eagle Nebula pillars of creation Hubble',
         'helix-nebula':  'NGC 7293 Helix nebula planetary Hubble',
         'lagoon-nebula': 'NGC 6523 Lagoon nebula star forming',
-        horsehead:       'Horsehead nebula Orion dark pillar infrared Hubble',
-        butterfly:       'NGC 6302 bipolar planetary nebula wings',
-        'cat-eye':       'NGC 6543 Cat Eye nebula Chandra X-ray optical',
+        horsehead:       'Horsehead Nebula',
+        butterfly:       'NGC 6302',
+        'cat-eye':       'Cat Eye Nebula NGC',
         rosette:         'NGC 2244 Rosette nebula star cluster',
 
         // Чёрные дыры
@@ -114,30 +114,30 @@ const NasaAPI = (() => {
         'v404-cygni':  'black hole X-ray binary Chandra outburst',
         'xte-j1650':   'stellar black hole X-ray Chandra',
         ngc1277:       'NGC 1277 compact galaxy massive black hole',
-        holm15a:       'galaxy cluster massive central black hole merger elliptical',
-        'ic10-x1':     'IC 10 starburst irregular galaxy',
+        holm15a:       'galaxy cluster black hole massive',
+        'ic10-x1':     'IC 10 galaxy',
         ss433:         'SS 433 microquasar relativistic jets',
 
         // Квазары
         '3c273':      'quasar 3C 273 Hubble jet',
-        apm08279:     'gravitational lens quasar ancient bright distant',
+        apm08279:     'gravitational lens quasar',
         ton618:       'massive black hole quasar ultraluminous host galaxy',
         markarian:    'Markarian ultraluminous infrared galaxy active nucleus',
         '3c48':       'radio galaxy active nucleus quasar 3C Hubble',
-        pks2349:      'active galactic nucleus jet quasar radio Hubble',
-        hs1700:       'Lyman break galaxy high redshift quasar cluster',
-        b1422:        'Einstein ring gravitational lens quasar arc multiple images',
-        'sdss-j1030': 'distant quasar high redshift early universe reionization',
+        pks2349:      'Hubble quasar host galaxy',
+        hs1700:       'galaxy cluster deep field Hubble',
+        b1422:        'Einstein ring gravitational',
+        'sdss-j1030': 'quasar Hubble distant',
         'ul-j0313':   'most distant quasar reionization early universe infrared',
 
         // Пульсары
         'psr-b1919':   'neutron star pulsar radio lighthouse',
-        'crab-pulsar': 'Crab Nebula pulsar wind nebula Chandra',
-        'psr-j0437':   'millisecond pulsar neutron star radio timing Parkes',
+        'crab-pulsar': 'Crab pulsar wind nebula',
+        'psr-j0437':   'radio pulsar timing',
         'vela-pulsar': 'Vela pulsar supernova remnant Chandra X-ray',
         millisecond:   'millisecond pulsar PSR B1257 planets neutron star',
-        'psr-j0030':   'NICER mission neutron star X-ray hotspot mapping',
-        'double-psr':  'binary pulsar neutron star gravitational waves Hulse Taylor',
+        'psr-j0030':   'NICER neutron star',
+        'double-psr':  'neutron star binary system',
         'psr-b1509':   'PSR B1509 nebula hand of god Chandra',
         geminga:       'Geminga pulsar bow shock Chandra',
         magnetar:      'SGR 1806 magnetar giant flare X-ray',
@@ -148,11 +148,11 @@ const NasaAPI = (() => {
         'kepler-452b':  'Kepler 452b Earth twin exoplanet',
         '51-peg-b':     'exoplanet hot Jupiter 51 Pegasi',
         hd209458b:      'HD 209458 b atmosphere transit exoplanet',
-        'gliese-667cc': 'Gliese 667 habitable zone exoplanet',
+        'gliese-667cc': 'red dwarf exoplanet habitable',
         'kepler-186f':  'Kepler 186f Earth-size habitable zone',
         'trappist-1d':  'TRAPPIST-1 rocky planet habitable',
-        'k2-18b':       'K2-18b ocean world super-Earth Hubble',
-        'toi-700d':     'TOI 700 habitable zone rocky planet TESS'
+        'k2-18b':       'Hubble atmosphere exoplanet water',
+        'toi-700d':     'TOI-700'
     };
 
     // ─── Кэширование ───
