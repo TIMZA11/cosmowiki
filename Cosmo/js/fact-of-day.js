@@ -53,28 +53,28 @@ const FactOfDay = (() => {
 
     // ─── Рендеринг ───
 
-    function render(section, apod, spacex, fact) {
+    function render(section, nasaImg, apod, spacex, fact) {
         section.innerHTML = '';
 
         // ── Карточка «Факт дня» ──
         const card = document.createElement('div');
         card.className = 'fod-card';
 
-        // Левая часть: изображение NASA APOD (или иконка)
+        // Левая часть: фото объекта из NASA Images API (или иконка)
         const imgWrap = document.createElement('div');
         imgWrap.className = 'fod-img-wrap';
 
-        if (apod && apod.media_type === 'image' && apod.url) {
+        if (nasaImg && nasaImg.thumbnail) {
             const img = document.createElement('img');
-            img.src   = apod.url;
-            img.alt   = apod.title || 'NASA APOD';
+            img.src   = nasaImg.thumbnail;
+            img.alt   = fact ? fact.name : 'NASA';
             img.className = 'fod-img';
             img.loading = 'lazy';
             imgWrap.appendChild(img);
 
             const badge = document.createElement('span');
             badge.className = 'fod-img-badge';
-            badge.textContent = 'NASA APOD';
+            badge.textContent = 'NASA';
             imgWrap.appendChild(badge);
         } else {
             const fallback = document.createElement('div');
@@ -94,9 +94,7 @@ const FactOfDay = (() => {
 
         const title = document.createElement('h3');
         title.className = 'fod-title';
-        if (apod && apod.title) {
-            title.textContent = apod.title;
-        } else if (fact) {
+        if (fact) {
             title.textContent = fact.name;
         }
         content.appendChild(title);
@@ -181,6 +179,45 @@ const FactOfDay = (() => {
             sx.appendChild(sxInfo);
             section.appendChild(sx);
         }
+
+        // ── Фото дня NASA APOD ──
+        if (apod && apod.media_type === 'image' && apod.url) {
+            const apodEl = document.createElement('div');
+            apodEl.className = 'fod-apod';
+
+            const apodImgWrap = document.createElement('div');
+            apodImgWrap.className = 'fod-apod-img-wrap';
+            const apodImg = document.createElement('img');
+            apodImg.src = apod.url;
+            apodImg.alt = apod.title || 'NASA APOD';
+            apodImg.className = 'fod-apod-img';
+            apodImg.loading = 'lazy';
+            apodImgWrap.appendChild(apodImg);
+
+            const apodInfo = document.createElement('div');
+            apodInfo.className = 'fod-apod-info';
+
+            const apodLabel = document.createElement('span');
+            apodLabel.className = 'fod-apod-label';
+            apodLabel.textContent = '🌌 Фото дня от NASA';
+            apodInfo.appendChild(apodLabel);
+
+            const apodTitle = document.createElement('strong');
+            apodTitle.className = 'fod-apod-title';
+            apodTitle.textContent = apod.title || '';
+            apodInfo.appendChild(apodTitle);
+
+            if (apod.explanation) {
+                const apodDesc = document.createElement('p');
+                apodDesc.className = 'fod-apod-desc';
+                apodDesc.textContent = apod.explanation.slice(0, 180) + '…';
+                apodInfo.appendChild(apodDesc);
+            }
+
+            apodEl.appendChild(apodImgWrap);
+            apodEl.appendChild(apodInfo);
+            section.appendChild(apodEl);
+        }
     }
 
     // ─── Инициализация ───
@@ -192,18 +229,23 @@ const FactOfDay = (() => {
         const fact = getDailyFact();
 
         // Сразу рендерим с фолбэком пока грузятся API
-        render(section, null, null, fact);
+        render(section, null, null, null, fact);
         section.classList.add('fod-visible');
 
-        // Параллельно грузим APOD и SpaceX
-        const [apod, spacex] = await Promise.all([
+        // Параллельно грузим фото объекта, APOD и SpaceX
+        const nasaImgPromise = (fact && typeof NasaAPI !== 'undefined')
+            ? NasaAPI.getBestImage(fact.id, fact.name).catch(() => null)
+            : Promise.resolve(null);
+
+        const [nasaImg, apod, spacex] = await Promise.all([
+            nasaImgPromise,
             fetchCached(APOD_URL, CACHE_APOD).catch(() => null),
             fetchCached(SPACEX_URL, CACHE_SX).catch(() => null)
         ]);
 
         // Перерисовываем с реальными данными
         section.classList.remove('fod-visible');
-        render(section, apod, spacex, fact);
+        render(section, nasaImg, apod, spacex, fact);
         setTimeout(() => section.classList.add('fod-visible'), 30);
     }
 

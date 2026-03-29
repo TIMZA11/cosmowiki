@@ -657,6 +657,59 @@ a {
     border-color: var(--accent);
 }
 
+/* ── Фото дня NASA APOD ── */
+.fod-apod {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px;
+    padding: 16px 20px;
+    margin-top: 16px;
+}
+
+.fod-apod-img-wrap {
+    flex-shrink: 0;
+    width: 120px;
+    height: 80px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.fod-apod-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.fod-apod-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.fod-apod-label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+}
+
+.fod-apod-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.fod-apod-desc {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+    margin: 0;
+}
+
 /* Адаптивность факта дня */
 @media (max-width: 1024px) {
     .fact-of-day { padding: 0 28px 50px; }
