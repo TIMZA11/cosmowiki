@@ -137,37 +137,22 @@ async function loadObjects(category) {
     category.objects.forEach((obj, i) => {
         const { imageDiv, extract, placeholder } = cards[i];
 
-        Promise.all([
-            NasaAPI.getBestImage(obj.id, obj.name).catch(() => null),
-            WikiAPI.getSummary(obj.wiki).catch(() => null)
-        ]).then(([nasaImage, wikiSummary]) => {
-            // Фото: NASA → Wikipedia fallback
-            let thumbnail = nasaImage?.thumbnail || null;
-            let imageSource = nasaImage ? 'NASA' : null;
+        // Описание из NASA_DESCRIPTIONS (статично, без запроса)
+        const nasaDesc = (typeof NASA_DESCRIPTIONS !== 'undefined') && NASA_DESCRIPTIONS[obj.id];
+        if (nasaDesc) extract.textContent = truncate(nasaDesc, 120);
 
-            if (!thumbnail && wikiSummary?.thumbnail) {
-                thumbnail = wikiSummary.thumbnail;
-                imageSource = 'Wiki';
-            }
-
-            if (thumbnail) {
+        NasaAPI.getBestImage(obj.id, obj.name).catch(() => null).then(nasaImage => {
+            if (nasaImage?.thumbnail) {
                 const img = document.createElement('img');
-                img.src = thumbnail;
+                img.src = nasaImage.thumbnail;
                 img.alt = obj.name;
                 img.loading = 'lazy';
                 placeholder.replaceWith(img);
-            }
 
-            if (imageSource === 'NASA') {
                 const credit = document.createElement('span');
                 credit.className = 'image-credit';
                 credit.textContent = 'NASA';
                 imageDiv.appendChild(credit);
-            }
-
-            // Описание
-            if (wikiSummary?.extract) {
-                extract.textContent = truncate(wikiSummary.extract, 120);
             }
         });
     });

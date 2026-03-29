@@ -51,19 +51,20 @@ document.addEventListener('DOMContentLoaded', () => {
  */
 async function loadAllData(obj, category) {
     try {
-        // Запускаем все запросы параллельно
-        const [nasaImages, wikiSummary, wikiInfobox] = await Promise.all([
+        // URL Википедии строим без API-запроса
+        const wikiUrl = `https://ru.wikipedia.org/wiki/${encodeURIComponent(obj.wiki)}`;
+
+        // Запускаем только необходимые запросы
+        const [nasaImages, wikiInfobox] = await Promise.all([
             NasaAPI.searchImages(NasaAPI.NASA_SEARCH_TERMS[obj.id] || obj.name, 8)
                 .catch(() => []),
-            WikiAPI.getSummary(obj.wiki)
-                .catch(() => null),
             WikiAPI.getInfobox(obj.wiki)
                 .catch(() => ({}))
         ]);
 
-        renderHeroImage(nasaImages, wikiSummary, obj);
-        renderDescription(wikiSummary, obj);
-        renderSources(wikiSummary, obj);
+        renderHeroImage(nasaImages, obj);
+        renderDescription(obj);
+        renderSources(wikiUrl, obj);
         renderTravelTime(obj.distanceKm);
         renderParams(wikiInfobox, obj);
         renderGallery(nasaImages);
@@ -80,7 +81,7 @@ async function loadAllData(obj, category) {
 /**
  * Отрисовать главное изображение объекта (безопасно, без inline-обработчиков)
  */
-function renderHeroImage(nasaImages, wikiSummary, obj) {
+function renderHeroImage(nasaImages, obj) {
     const container = document.getElementById('object-hero-image');
 
     let imageUrl = null;
@@ -92,12 +93,6 @@ function renderHeroImage(nasaImages, wikiSummary, obj) {
     } else if (nasaImages.length > 0 && nasaImages[0].thumbnail) {
         imageUrl = nasaImages[0].thumbnail;
         credit = nasaImages[0].credit || 'NASA';
-    } else if (wikiSummary?.image) {
-        imageUrl = wikiSummary.image;
-        credit = 'Wikipedia';
-    } else if (wikiSummary?.thumbnail) {
-        imageUrl = wikiSummary.thumbnail;
-        credit = 'Wikipedia';
     }
 
     // Очищаем контейнер
@@ -146,22 +141,22 @@ function renderPlaceholder(container, name) {
 /**
  * Отрисовать описание объекта
  */
-function renderDescription(wikiSummary, obj) {
+function renderDescription(obj) {
     const extractEl = document.getElementById('object-extract');
     const nasaDesc = (typeof NASA_DESCRIPTIONS !== 'undefined') && NASA_DESCRIPTIONS[obj.id];
-    extractEl.textContent = nasaDesc || wikiSummary?.extract || `${obj.name} — космический объект.`;
+    extractEl.textContent = nasaDesc || `${obj.name} — космический объект.`;
 }
 
 /**
  * Отрисовать ссылки на источники (безопасно, через DOM API)
  */
-function renderSources(wikiSummary, obj) {
+function renderSources(wikiUrl, obj) {
     const sourcesEl = document.getElementById('object-sources');
     sourcesEl.innerHTML = '';
 
-    if (wikiSummary?.wikiUrl) {
+    if (wikiUrl) {
         const wikiLink = document.createElement('a');
-        wikiLink.href = wikiSummary.wikiUrl;
+        wikiLink.href = wikiUrl;
         wikiLink.target = '_blank';
         wikiLink.rel = 'noopener';
         wikiLink.className = 'source-link';
