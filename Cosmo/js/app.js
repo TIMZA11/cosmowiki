@@ -5,6 +5,7 @@
 
 document.addEventListener('DOMContentLoaded', () => {
     renderCategories();
+    FactOfDay.init();
 });
 
 /**

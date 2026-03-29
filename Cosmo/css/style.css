@@ -431,6 +431,251 @@ a {
     color: var(--accent);
 }
 
+/* ============================================
+   Факт дня
+   ============================================ */
+
+.fact-of-day {
+    position: relative;
+    z-index: 1;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 48px 60px;
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.fact-of-day.fod-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Основная карточка */
+.fod-card {
+    display: grid;
+    grid-template-columns: 420px 1fr;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    backdrop-filter: blur(12px);
+    overflow: hidden;
+    margin-bottom: 16px;
+}
+
+/* Изображение */
+.fod-img-wrap {
+    position: relative;
+    min-height: 280px;
+    overflow: hidden;
+    background: var(--bg-secondary);
+}
+
+.fod-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+}
+
+.fod-card:hover .fod-img {
+    transform: scale(1.04);
+}
+
+.fod-img-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    padding: 4px 10px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #fff;
+    background: rgba(0, 82, 163, 0.85);
+    border-radius: 6px;
+}
+
+.fod-img-fallback {
+    width: 100%;
+    height: 100%;
+    min-height: 280px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 5rem;
+    filter: drop-shadow(0 0 24px var(--accent-glow));
+}
+
+/* Контент */
+.fod-content {
+    padding: 36px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    justify-content: center;
+}
+
+.fod-date-badge {
+    display: inline-block;
+    align-self: flex-start;
+    padding: 5px 14px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--accent-light);
+    background: rgba(139, 92, 246, 0.08);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    letter-spacing: 0.3px;
+}
+
+.fod-title {
+    font-size: 1.6rem;
+    font-weight: 800;
+    letter-spacing: -0.3px;
+    line-height: 1.2;
+}
+
+.fod-text {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.75;
+}
+
+.fod-footer {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-top: 4px;
+}
+
+.fod-cat-badge {
+    padding: 5px 14px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+}
+
+.fod-link {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--accent);
+    transition: color var(--transition);
+}
+
+.fod-link:hover {
+    color: var(--accent-light);
+}
+
+/* SpaceX карточка */
+.fod-spacex {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    padding: 20px 28px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    backdrop-filter: blur(12px);
+}
+
+.fod-sx-patch {
+    width: 72px;
+    height: 72px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+}
+
+.fod-sx-patch img {
+    width: 72px;
+    height: 72px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 8px rgba(255,255,255,0.1));
+}
+
+.fod-sx-info {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    flex: 1;
+}
+
+.fod-sx-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    width: 100%;
+    margin-bottom: -12px;
+}
+
+.fod-sx-name {
+    font-size: 1.05rem;
+    font-weight: 700;
+}
+
+.fod-sx-date {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.fod-sx-status {
+    font-size: 0.82rem;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 100px;
+}
+
+.fod-sx-status.ok      { background: rgba(34, 197, 94, 0.12); color: #4ade80; }
+.fod-sx-status.fail    { background: rgba(239, 68, 68, 0.12);  color: #f87171; }
+.fod-sx-status.unknown { background: rgba(250, 204, 21, 0.12); color: #fbbf24; }
+
+.fod-sx-watch {
+    margin-left: auto;
+    padding: 8px 18px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    background: rgba(139, 92, 246, 0.12);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    transition: all var(--transition);
+}
+
+.fod-sx-watch:hover {
+    background: rgba(139, 92, 246, 0.25);
+    border-color: var(--accent);
+}
+
+/* Адаптивность факта дня */
+@media (max-width: 1024px) {
+    .fact-of-day { padding: 0 28px 50px; }
+    .fod-card { grid-template-columns: 320px 1fr; }
+}
+
+@media (max-width: 768px) {
+    .fod-card { grid-template-columns: 1fr; }
+    .fod-img-wrap { min-height: 220px; }
+    .fod-content { padding: 24px; }
+    .fod-spacex { flex-wrap: wrap; }
+    .fod-sx-watch { margin-left: 0; width: 100%; text-align: center; }
+}
+
+@media (max-width: 480px) {
+    .fact-of-day { padding: 0 18px 40px; }
+    .fod-title { font-size: 1.3rem; }
+}
+
 /* --- Адаптивность --- */
 
 /* Планшет */
