@@ -3,7 +3,7 @@
    Вдохновлено дизайном DesignWave
    ============================================ */
 
-/* --- CSS-переменные --- */
+/* --- CSS-переменные (тёмная тема — по умолчанию) --- */
 :root {
     --bg-primary: #07070d;
     --bg-secondary: #0e0e18;
@@ -17,10 +17,69 @@
     --text-secondary: #a0a0b8;
     --text-muted: #6b6b80;
     --border: rgba(139, 92, 246, 0.15);
+    --header-bg: rgba(7, 7, 13, 0.85);
+    --overlay-color: rgba(7, 7, 13, 0.55);
     --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     --radius: 16px;
     --radius-sm: 10px;
     --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* --- Светлая тема --- */
+[data-theme="light"] {
+    --bg-primary: #f4f4ff;
+    --bg-secondary: #eaeaf8;
+    --bg-card: rgba(255, 255, 255, 0.82);
+    --bg-card-hover: rgba(245, 242, 255, 0.95);
+    --accent: #7c3aed;
+    --accent-light: #8b5cf6;
+    --accent-dark: #6d28d9;
+    --accent-glow: rgba(124, 58, 237, 0.25);
+    --text-primary: #0d0d1a;
+    --text-secondary: #4a4a6a;
+    --text-muted: #8080a0;
+    --border: rgba(124, 58, 237, 0.18);
+    --header-bg: rgba(244, 244, 255, 0.92);
+    --overlay-color: rgba(244, 244, 255, 0.75);
+}
+
+[data-theme="light"] body {
+    background: var(--bg-primary);
+}
+
+[data-theme="light"] .hero-title {
+    background: linear-gradient(180deg, #0d0d1a 40%, rgba(13, 13, 26, 0.55));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+[data-theme="light"] .video-overlay {
+    background: var(--overlay-color);
+}
+
+/* --- Кнопка переключения темы --- */
+.theme-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: all var(--transition);
+    flex-shrink: 0;
+    backdrop-filter: blur(8px);
+}
+
+.theme-toggle:hover {
+    border-color: var(--accent);
+    color: var(--accent-light);
+    background: var(--bg-card-hover);
 }
 
 /* --- Сброс и базовые стили --- */
@@ -164,7 +223,7 @@ a {
     align-items: center;
     justify-content: space-between;
     padding: 20px 48px;
-    background: rgba(7, 7, 13, 0.8);
+    background: var(--header-bg);
     backdrop-filter: blur(20px);
     border-bottom: 1px solid var(--border);
 }

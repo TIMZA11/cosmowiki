@@ -4,10 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CosmoWiki — Объект</title>
+    <meta name="description" content="Подробная информация о космическом объекте: характеристики, фотографии NASA, расчёт времени полёта с Земли.">
+    <meta name="robots" content="index, follow">
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="CosmoWiki — Объект">
+    <meta property="og:description" content="Подробная информация о космическом объекте: характеристики, фотографии NASA, расчёт времени полёта.">
+    <meta property="og:image" content="assets/og-preview.jpg">
+    <meta property="og:locale" content="ru_RU">
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="CosmoWiki — Объект">
+    <meta name="twitter:description" content="Подробная информация о космическом объекте с фотографиями NASA.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
+    <script src="js/theme.js"></script>
 </head>
 <body>
     <!-- Фоновое видео космоса -->
@@ -30,6 +43,7 @@
             <a href="index.html#catalog" class="nav-link active">Каталог</a>
             <a href="spacex.html" class="nav-link">SpaceX</a>
             <a href="index.html#about" class="nav-link">О проекте</a>
+            <button id="theme-toggle" class="theme-toggle" title="Переключить тему">☀️</button>
         </nav>
     </header>
 
@@ -96,6 +110,7 @@
 
     <script src="js/catalog.js"></script>
     <script src="js/naked-science-data.js"></script>
+    <script src="js/nasa-descriptions.js"></script>
     <script src="js/wiki-api.js"></script>
     <script src="js/nasa-api.js"></script>
     <script src="js/travel-time.js"></script>

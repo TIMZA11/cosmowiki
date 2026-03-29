@@ -18,6 +18,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Заполняем заголовок
     document.title = `CosmoWiki — ${category.name}`;
+    const desc = category.description || `Каталог объектов «${category.name}» с фотографиями NASA.`;
+    document.querySelector('meta[name="description"]')?.setAttribute('content', desc);
+    document.querySelector('meta[property="og:title"]')?.setAttribute('content', `CosmoWiki — ${category.name}`);
+    document.querySelector('meta[property="og:description"]')?.setAttribute('content', desc);
+    document.querySelector('meta[name="twitter:title"]')?.setAttribute('content', `CosmoWiki — ${category.name}`);
+    document.querySelector('meta[name="twitter:description"]')?.setAttribute('content', desc);
     document.getElementById('category-icon').textContent = category.icon;
     document.getElementById('category-title').textContent = category.name;
     document.getElementById('category-description').textContent = category.description;

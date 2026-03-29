@@ -35,6 +35,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // Заголовок
     document.getElementById('object-title').textContent = obj.name;
     document.title = `CosmoWiki — ${obj.name}`;
+    const objDesc = `${obj.name} — космический объект категории «${category.name}». Характеристики, фотографии NASA, расчёт времени полёта с Земли.`;
+    document.querySelector('meta[name="description"]')?.setAttribute('content', objDesc);
+    document.querySelector('meta[property="og:title"]')?.setAttribute('content', `CosmoWiki — ${obj.name}`);
+    document.querySelector('meta[property="og:description"]')?.setAttribute('content', objDesc);
+    document.querySelector('meta[name="twitter:title"]')?.setAttribute('content', `CosmoWiki — ${obj.name}`);
+    document.querySelector('meta[name="twitter:description"]')?.setAttribute('content', objDesc);
 
     // Параллельная загрузка данных из всех источников
     loadAllData(obj, category);
@@ -142,7 +148,8 @@ function renderPlaceholder(container, name) {
  */
 function renderDescription(wikiSummary, obj) {
     const extractEl = document.getElementById('object-extract');
-    extractEl.textContent = wikiSummary?.extract || `${obj.name} — космический объект.`;
+    const nasaDesc = (typeof NASA_DESCRIPTIONS !== 'undefined') && NASA_DESCRIPTIONS[obj.id];
+    extractEl.textContent = nasaDesc || wikiSummary?.extract || `${obj.name} — космический объект.`;
 }
 
 /**
