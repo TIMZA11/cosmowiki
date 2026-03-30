@@ -1,6 +1,14 @@
 {
   "cleanUrls": true,
   "trailingSlash": false,
+  "redirects": [
+    { "source": "/index",    "destination": "/",        "permanent": true },
+    { "source": "/index.html","destination": "/",       "permanent": true },
+    { "source": "/orbit.html","destination": "/orbit",  "permanent": true },
+    { "source": "/spacex.html","destination": "/spacex","permanent": true },
+    { "source": "/category.html","destination": "/category","permanent": true },
+    { "source": "/object.html","destination": "/object", "permanent": true }
+  ],
   "headers": [
     {
       "source": "/(.*)",
