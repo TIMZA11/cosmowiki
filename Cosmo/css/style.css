@@ -247,6 +247,8 @@ a {
     line-height: 0.95;
     letter-spacing: -2px;
     margin-bottom: 28px;
+    padding-right: 0.2em;
+    overflow: visible;
     background: linear-gradient(180deg, #ffffff 40%, rgba(255, 255, 255, 0.6));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
