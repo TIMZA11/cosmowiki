@@ -164,7 +164,7 @@ function initOrbit() {
 
     try {
         viz = new Spacekit.Simulation(container, {
-            basePath: 'https://typpo.github.io/spacekit/src',
+            basePath: 'https://cdn.jsdelivr.net/gh/typpo/spacekit@main/src',
             camera: {
                 initialPosition: [0, -22, 10],
                 enableDrift: false,
