@@ -295,37 +295,36 @@ function initClickHandler() {
         if (dx > 5 || dy > 5) return;
 
         const rect  = canvas.getBoundingClientRect();
+        // Находим ближайший объект к точке клика по экранным координатам
         const T = Spacekit.THREE;
-        const mouse = new T.Vector2(
-            ((e.clientX - rect.left) / rect.width)  * 2 - 1,
-            -((e.clientY - rect.top) / rect.height) * 2 + 1
-        );
+        const camera = viewer.camera;
 
-        const raycaster = new T.Raycaster();
-        raycaster.params.Points  = { threshold: 0.5 };
-        raycaster.params.Sprite  = { threshold: 0.5 };
-        raycaster.setFromCamera(mouse, viewer.camera);
+        let bestId = null;
+        let bestDist = Infinity;
+        const CLICK_THRESHOLD_PX = 40; // пикселей
 
-        // Собираем все 3js-объекты из simObjects
-        const meshes = [];
-        const idByMesh = new Map();
         Object.entries(simObjects).forEach(([id, spaceObj]) => {
-            const objs = spaceObj.get3jsObjects ? spaceObj.get3jsObjects() : [];
-            objs.forEach(m => {
-                meshes.push(m);
-                idByMesh.set(m.uuid, id);
-                // Дочерние объекты тоже
-                m.traverse(child => {
-                    meshes.push(child);
-                    idByMesh.set(child.uuid, id);
-                });
-            });
+            try {
+                const pos3d = spaceObj.getPosition();
+                if (!pos3d) return;
+                const worldPos = new T.Vector3(...pos3d);
+                // Проецируем в NDC
+                const ndc = worldPos.clone().project(camera);
+                // Переводим в пиксели
+                const sx = (ndc.x * 0.5 + 0.5) * rect.width;
+                const sy = (1 - (ndc.y * 0.5 + 0.5)) * rect.height;
+                const cx = e.clientX - rect.left;
+                const cy = e.clientY - rect.top;
+                const dist = Math.hypot(sx - cx, sy - cy);
+                if (dist < bestDist) {
+                    bestDist = dist;
+                    bestId = id;
+                }
+            } catch {}
         });
 
-        const hits = raycaster.intersectObjects(meshes, false);
-        if (hits.length > 0) {
-            const id = idByMesh.get(hits[0].object.uuid);
-            if (id) openInfoPanel(id);
+        if (bestId && bestDist < CLICK_THRESHOLD_PX) {
+            openInfoPanel(bestId);
         }
     });
 }
