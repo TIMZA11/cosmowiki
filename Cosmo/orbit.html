@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CosmoWiki — Орбитальная карта</title>
+    <meta name="description" content="Интерактивная 3D орбитальная карта Солнечной системы. Планеты, карликовые планеты, астероиды и кометы с реальными орбитальными элементами.">
+    <meta name="keywords" content="орбитальная карта, солнечная система, планеты, орбиты, астероиды, кометы, 3D">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="orbit.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="CosmoWiki — Орбитальная карта">
+    <meta property="og:description" content="Интерактивная 3D орбитальная карта Солнечной системы с реальными данными орбит.">
+    <meta property="og:locale" content="ru_RU">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="orbit-page">
+
+    <!-- Шапка -->
+    <header class="header">
+        <a href="index.html" class="logo">COSMO<span>WIKI</span></a>
+        <nav class="nav">
+            <a href="index.html" class="nav-link">Главная</a>
+            <a href="index.html#catalog" class="nav-link">Каталог</a>
+            <a href="spacex.html" class="nav-link">SpaceX</a>
+            <a href="orbit.html" class="nav-link active">Орбиты</a>
+            <a href="index.html#about" class="nav-link">О проекте</a>
+        </nav>
+    </header>
+
+    <!-- Обёртка орбитальной карты -->
+    <div class="orbit-wrap">
+
+        <!-- Фильтры объектов -->
+        <div class="orbit-filters">
+            <button class="orbit-filter-btn active" data-type="planet">🌍 Планеты</button>
+            <button class="orbit-filter-btn active" data-type="dwarf">🔵 Карликовые</button>
+            <button class="orbit-filter-btn active" data-type="asteroid">🌑 Астероиды</button>
+            <button class="orbit-filter-btn active" data-type="comet">☄️ Кометы</button>
+        </div>
+
+        <!-- Подсказка управления -->
+        <div class="orbit-hint">Нажмите на объект · Перетаскивайте для поворота · Прокрутка — масштаб</div>
+
+        <!-- Canvas SpaceKit -->
+        <div id="orbit-canvas"></div>
+
+        <!-- Панель управления временем -->
+        <div class="orbit-controls">
+            <div class="orbit-date-wrap">
+                <span class="orbit-date-label">Дата симуляции</span>
+                <span class="orbit-date" id="orbit-date">—</span>
+            </div>
+            <div class="orbit-ctrl-divider"></div>
+            <button class="orbit-ctrl-btn" id="btn-slower" title="Замедлить">⏪</button>
+            <button class="orbit-ctrl-btn orbit-ctrl-main" id="btn-pause" title="Пауза / Воспроизведение">⏸</button>
+            <button class="orbit-ctrl-btn" id="btn-faster" title="Ускорить">⏩</button>
+            <div class="orbit-ctrl-divider"></div>
+            <span class="orbit-speed" id="orbit-speed">10 дней/с</span>
+            <button class="orbit-ctrl-btn orbit-ctrl-today" id="btn-today" title="Вернуться к сегодня">↺</button>
+        </div>
+
+        <!-- Информационная панель (правая) -->
+        <div class="orbit-info" id="orbit-info">
+            <button class="orbit-info-close" id="orbit-info-close" aria-label="Закрыть">×</button>
+            <div class="orbit-info-scroll">
+                <div id="orbit-info-content"></div>
+            </div>
+        </div>
+
+        <!-- Легенда -->
+        <div class="orbit-legend">
+            <div class="orbit-legend-item"><span class="ol-dot" style="background:#4a90ff"></span>Планеты</div>
+            <div class="orbit-legend-item"><span class="ol-dot" style="background:#44ccaa"></span>Карликовые</div>
+            <div class="orbit-legend-item"><span class="ol-dot" style="background:#909090"></span>Астероиды</div>
+            <div class="orbit-legend-item"><span class="ol-dot" style="background:#88ccff"></span>Кометы</div>
+        </div>
+
+    </div>
+
+    <script src="js/catalog.js"></script>
+    <script src="js/nasa-descriptions.js"></script>
+    <script src="https://typpo.github.io/spacekit/build/spacekit.js"
+            onerror="window.__spacekit_failed = true"></script>
+    <script src="js/orbit.js"></script>
+</body>
+</html>
