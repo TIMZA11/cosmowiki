@@ -469,4 +469,10 @@ function showError(container) {
 // ЗАПУСК
 // ══════════════════════════════════════════════════════════
 
-document.addEventListener('DOMContentLoaded', initOrbit);
+document.addEventListener('DOMContentLoaded', function() {
+    if (typeof window.__loadSpacekit === 'function') {
+        window.__loadSpacekit(initOrbit);
+    } else {
+        initOrbit();
+    }
+});
