@@ -187,11 +187,8 @@ function initOrbit() {
         }
     });
 
-    // Глобальный обработчик клика по объекту
-    viz.onClickObject((spaceObj) => {
-        const id = spaceObj.getId ? spaceObj.getId() : null;
-        if (id) openInfoPanel(id);
-    });
+    // Клик по объекту через Three.js Raycaster
+    initClickHandler();
 
     // Скорость
     applySpeed();
@@ -272,6 +269,65 @@ function toggleFilter(type, btn) {
             }
         });
     }
+}
+
+// ══════════════════════════════════════════════════════════
+// КЛИК ПО ОБЪЕКТУ (Three.js Raycaster)
+// ══════════════════════════════════════════════════════════
+
+function initClickHandler() {
+    const viewer   = viz.getViewer();
+    const renderer = viz.getRenderer();
+    const canvas   = renderer.domElement;
+
+    let dragStart = null;
+
+    canvas.addEventListener('pointerdown', (e) => {
+        dragStart = { x: e.clientX, y: e.clientY };
+    });
+
+    canvas.addEventListener('pointerup', (e) => {
+        if (!dragStart) return;
+        const dx = Math.abs(e.clientX - dragStart.x);
+        const dy = Math.abs(e.clientY - dragStart.y);
+        dragStart = null;
+        // Игнорируем, если это был drag, а не клик
+        if (dx > 5 || dy > 5) return;
+
+        const rect  = canvas.getBoundingClientRect();
+        const T = Spacekit.THREE;
+        const mouse = new T.Vector2(
+            ((e.clientX - rect.left) / rect.width)  * 2 - 1,
+            -((e.clientY - rect.top) / rect.height) * 2 + 1
+        );
+
+        const raycaster = new T.Raycaster();
+        raycaster.params.Points  = { threshold: 0.5 };
+        raycaster.params.Sprite  = { threshold: 0.5 };
+        raycaster.setFromCamera(mouse, viewer.camera);
+
+        // Собираем все 3js-объекты из simObjects
+        const meshes = [];
+        const idByMesh = new Map();
+        Object.entries(simObjects).forEach(([id, spaceObj]) => {
+            const objs = spaceObj.get3jsObjects ? spaceObj.get3jsObjects() : [];
+            objs.forEach(m => {
+                meshes.push(m);
+                idByMesh.set(m.uuid, id);
+                // Дочерние объекты тоже
+                m.traverse(child => {
+                    meshes.push(child);
+                    idByMesh.set(child.uuid, id);
+                });
+            });
+        });
+
+        const hits = raycaster.intersectObjects(meshes, false);
+        if (hits.length > 0) {
+            const id = idByMesh.get(hits[0].object.uuid);
+            if (id) openInfoPanel(id);
+        }
+    });
 }
 
 // ══════════════════════════════════════════════════════════
