@@ -294,33 +294,30 @@ function initClickHandler() {
         // Игнорируем, если это был drag, а не клик
         if (dx > 5 || dy > 5) return;
 
-        const rect  = canvas.getBoundingClientRect();
-        // Находим ближайший объект к точке клика по экранным координатам
-        const T = Spacekit.THREE;
-        const camera = viewer.camera;
+        // Находим ближайший объект к точке клика по позициям HTML-меток SpaceKit
+        const cx = e.clientX;
+        const cy = e.clientY;
+        const CLICK_THRESHOLD_PX = 60;
+
+        // Строим карту: текст метки → id объекта
+        const nameToId = {};
+        ORBIT_DATA.forEach(obj => { nameToId[obj.name] = obj.id; });
 
         let bestId = null;
         let bestDist = Infinity;
-        const CLICK_THRESHOLD_PX = 40; // пикселей
 
-        Object.entries(simObjects).forEach(([id, spaceObj]) => {
-            try {
-                const pos3d = spaceObj.getPosition();
-                if (!pos3d) return;
-                const worldPos = new T.Vector3(...pos3d);
-                // Проецируем в NDC
-                const ndc = worldPos.clone().project(camera);
-                // Переводим в пиксели
-                const sx = (ndc.x * 0.5 + 0.5) * rect.width;
-                const sy = (1 - (ndc.y * 0.5 + 0.5)) * rect.height;
-                const cx = e.clientX - rect.left;
-                const cy = e.clientY - rect.top;
-                const dist = Math.hypot(sx - cx, sy - cy);
-                if (dist < bestDist) {
-                    bestDist = dist;
-                    bestId = id;
-                }
-            } catch {}
+        document.querySelectorAll('.spacekit__object-label').forEach(label => {
+            const name = label.textContent.trim();
+            const id = nameToId[name];
+            if (!id) return;
+            const r = label.getBoundingClientRect();
+            const lx = r.left + r.width / 2;
+            const ly = r.top + r.height / 2;
+            const dist = Math.hypot(lx - cx, ly - cy);
+            if (dist < bestDist) {
+                bestDist = dist;
+                bestId = id;
+            }
         });
 
         if (bestId && bestDist < CLICK_THRESHOLD_PX) {
