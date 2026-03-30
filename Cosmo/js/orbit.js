@@ -188,7 +188,7 @@ function initOrbit() {
     });
 
     // Клик по объекту через Three.js Raycaster
-    initClickHandler();
+    try { initClickHandler(); } catch(e) { console.warn('Raycaster init failed:', e); }
 
     // Скорость
     applySpeed();
