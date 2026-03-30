@@ -164,7 +164,7 @@ function initOrbit() {
 
     try {
         viz = new Spacekit.Simulation(container, {
-            basePath: 'https://cdn.jsdelivr.net/gh/typpo/spacekit@main/src',
+            basePath: 'https://typpo.github.io/spacekit/src',
             camera: {
                 initialPosition: [0, -22, 10],
                 enableDrift: false,
@@ -469,10 +469,4 @@ function showError(container) {
 // ЗАПУСК
 // ══════════════════════════════════════════════════════════
 
-document.addEventListener('DOMContentLoaded', function() {
-    if (typeof window.__loadSpacekit === 'function') {
-        window.__loadSpacekit(initOrbit);
-    } else {
-        initOrbit();
-    }
-});
+document.addEventListener('DOMContentLoaded', initOrbit);

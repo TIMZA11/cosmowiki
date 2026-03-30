@@ -83,21 +83,8 @@
 
     <script src="js/catalog.js"></script>
     <script src="js/nasa-descriptions.js"></script>
-    <script>
-    window.__loadSpacekit = function(onLoad) {
-        var s = document.createElement('script');
-        s.src = 'https://cdn.jsdelivr.net/gh/typpo/spacekit@main/build/spacekit.js';
-        s.onload = onLoad;
-        s.onerror = function() {
-            var s2 = document.createElement('script');
-            s2.src = 'https://typpo.github.io/spacekit/build/spacekit.js';
-            s2.onload = onLoad;
-            s2.onerror = function() { window.__spacekit_failed = true; onLoad(); };
-            document.head.appendChild(s2);
-        };
-        document.head.appendChild(s);
-    };
-    </script>
+    <script src="https://typpo.github.io/spacekit/build/spacekit.js"
+            onerror="window.__spacekit_failed=true"></script>
     <script src="js/orbit.js"></script>
 </body>
 </html>
